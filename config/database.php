@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "agenda_db";
+$dbname = "faq_db";
 
 // Tenta estabelecer a conexão com o MySQL
 $conn = mysqli_connect($servername, $username, $password, $dbname);
