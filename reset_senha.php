@@ -2,9 +2,9 @@
 // Inclui a conexão
 require_once 'config/database.php';
 
-// Define a senha que você quer usar
+// Define a senha
 $senha_nova = '123456';
-// Gera o hash correto e seguro
+// Gera o hash
 $senha_hash = password_hash($senha_nova, PASSWORD_DEFAULT);
 
 // Atualiza o usuário admin no banco
