@@ -35,16 +35,21 @@ $caminho = (basename(getcwd()) == 'FAQ-Web') ? '' : '../';
                     <?php endif; ?>
                 </ul>
                 <ul class="navbar-nav">
-                    <?php if (isset($_SESSION['usuario_logado'])): ?>
-                        <li class="nav-item me-3">
-                            <span class="nav-link text-light">
-                                Olá, <strong><?php echo htmlspecialchars($_SESSION['usuario_logado']); ?></strong>
-                            </span>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?php echo $caminho; ?>processa.php?acao=logout" class="btn btn-sm btn-danger">Sair</a>
-                        </li>
-                    <?php endif; ?>
+                <?php if (isset($_SESSION['usuario_logado'])): ?>
+                    <li class="nav-item me-3">
+                        <span class="nav-link text-light">
+                            Olá, <strong><?php echo htmlspecialchars($_SESSION['usuario_logado']); ?></strong>
+                        </span>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?php echo $caminho; ?>processa.php?acao=logout" class="btn btn-sm btn-danger mt-1">Sair</a>
+                    </li>
+                
+                <?php else: ?>
+                    <li class="nav-item">
+                        <a href="<?php echo $caminho; ?>login.php" class="btn btn-sm btn-light text-primary fw-bold mt-1">Login</a>
+                    </li>
+                <?php endif; ?>
                 </ul>
             </div>
         </div>

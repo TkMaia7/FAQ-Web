@@ -44,28 +44,8 @@ switch ($acao) {
         break;
 
     // =================
-    // CRUD DE CONTATOS
+    // CRUD DE FAQs
     // =================
-    case 'cadastrar_contato':
-        verificar_login();
-        
-        $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);
-        $telefone = filter_input(INPUT_POST, 'telefone', FILTER_SANITIZE_STRING);
-        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-        $data_nascimento = filter_input(INPUT_POST, 'data_nascimento', FILTER_SANITIZE_STRING);
-        $endereco = filter_input(INPUT_POST, 'endereco', FILTER_SANITIZE_STRING);
-
-        // Prepared Statement para INSERT (Proteção contra SQL Injection)
-        $stmt = mysqli_prepare($conn, "INSERT INTO contatos (nome, telefone, email, data_nascimento, endereco) VALUES (?, ?, ?, ?, ?)");
-        mysqli_stmt_bind_param($stmt, "sssss", $nome, $telefone, $email, $data_nascimento, $endereco);
-
-        if (mysqli_stmt_execute($stmt)) {
-            header("Location: index.php?msg=Contato '$nome' cadastrado com sucesso!");
-        } else {
-            header("Location: contatos_cadastrar.php?erro=Erro ao cadastrar: " . mysqli_error($conn));
-        }
-        mysqli_stmt_close($stmt);
-        break;
     
     case 'cadastrar_faq':
         verificar_login();
@@ -80,34 +60,7 @@ switch ($acao) {
         if (mysqli_stmt_execute($stmt)) {
             header("Location: index.php?msg=Nova pergunta cadastrada com sucesso!");
         } else {
-            header("Location: contatos_cadastrar.php?erro=Erro ao cadastrar: " . mysqli_error($conn));
-        }
-        mysqli_stmt_close($stmt);
-        break;
-
-    case 'editar_contato':
-        verificar_login();
-        
-        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
-        $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);
-        $telefone = filter_input(INPUT_POST, 'telefone', FILTER_SANITIZE_STRING);
-        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-        $data_nascimento = filter_input(INPUT_POST, 'data_nascimento', FILTER_SANITIZE_STRING);
-        $endereco = filter_input(INPUT_POST, 'endereco', FILTER_SANITIZE_STRING);
-
-        if (!$id) {
-            header("Location: index.php?erro=ID de contato inválido.");
-            exit();
-        }
-
-        // Prepared Statement para UPDATE
-        $stmt = mysqli_prepare($conn, "UPDATE contatos SET nome = ?, telefone = ?, email = ?, data_nascimento = ?, endereco = ? WHERE id = ?");
-        mysqli_stmt_bind_param($stmt, "sssssi", $nome, $telefone, $email, $data_nascimento, $endereco, $id);
-
-        if (mysqli_stmt_execute($stmt)) {
-            header("Location: index.php?msg=Contato ID: $id atualizado com sucesso!");
-        } else {
-            header("Location: contatos_editar.php?id=$id&erro=Erro ao atualizar: " . mysqli_error($conn));
+            header("Location: faq_cadastrar.php?erro=Erro ao cadastrar: " . mysqli_error($conn));
         }
         mysqli_stmt_close($stmt);
         break;
@@ -131,32 +84,11 @@ switch ($acao) {
         if (mysqli_stmt_execute($stmt)) {
             header("Location: index.php?msg=Pergunta ID: $id atualizada com sucesso!");
         } else {
-            header("Location: contatos_editar.php?id=$id&erro=Erro ao atualizar: " . mysqli_error($conn));
+            header("Location: faq_editar.php?id=$id&erro=Erro ao atualizar: " . mysqli_error($conn));
         }
         mysqli_stmt_close($stmt);
         break;
 
-    case 'excluir_contato':
-        verificar_login();
-        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-
-        if (!$id) {
-            header("Location: index.php?erro=ID de contato inválido.");
-            exit();
-        }
-
-        // Prepared Statement para DELETE
-        $stmt = mysqli_prepare($conn, "DELETE FROM contatos WHERE id = ?");
-        mysqli_stmt_bind_param($stmt, "i", $id);
-
-        if (mysqli_stmt_execute($stmt)) {
-            header("Location: index.php?msg=Contato excluído com sucesso!");
-        } else {
-            header("Location: index.php?erro=Erro ao excluir: " . mysqli_error($conn));
-        }
-        mysqli_stmt_close($stmt);
-        break;
-    
     case 'excluir_faq':
         verificar_login();
         $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
