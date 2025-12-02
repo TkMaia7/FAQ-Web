@@ -1,6 +1,6 @@
 <?php
 require_once 'config/database.php';
-verificar_admin(); // APENAS ADMIN PODE ACESSAR ESTA PÁGINA
+verificar_admin(); // APENAS ADMINS PODE ACESSAR ESTA PÁGINA
 include 'includes/header.php';
 
 // Variáveis para mensagens (sucesso ou erro)

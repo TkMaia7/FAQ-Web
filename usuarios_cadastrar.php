@@ -39,8 +39,8 @@ $mensagem_erro = isset($_GET['erro']) ? htmlspecialchars($_GET['erro']) : '';
             <div class="mb-3">
                 <label for="nivel" class="form-label">Nível de Acesso:</label>
                 <select class="form-select" id="nivel" name="nivel" required>
-                    <option value="Comum">Comum (Apenas gerencia contatos)</option>
-                    <option value="Admin">Admin (Gerencia contatos e utilizadores)</option>
+                    <option value="Comum">Comum (Apenas gerencia FAQs)</option>
+                    <option value="Admin">Admin (Gerencia FAQs e utilizadores)</option>
                 </select>
             </div>
 
