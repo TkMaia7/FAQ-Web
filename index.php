@@ -87,16 +87,30 @@ $resultado = mysqli_query($conn, $sql);
 
             <div class="list-group list-group-flush">
                 <?php while ($faq = mysqli_fetch_assoc($resultado)): ?>
-                    <div class="list-group-item py-4 bg-transparent border-bottom">
-                        <h4 class="mb-3 text-primary fw-bold">
-                            <?php 
-                                echo $contador . ". " . htmlspecialchars($faq['pergunta']); 
-                            ?>
+                    
+                    <?php $id_collapse = "resp_" . $faq['id']; ?>
+
+                    <div class="list-group-item py-3 bg-transparent border-bottom">
+                        
+                        <h4 class="mb-0">
+                            <button class="btn btn-link text-decoration-none text-start w-100 p-0" 
+                                    type="button" 
+                                    data-bs-toggle="collapse" 
+                                    data-bs-target="#<?php echo $id_collapse; ?>">
+                                <span class="text-primary fw-bold">
+                                    <?php 
+                                        echo $contador . ". " . htmlspecialchars($faq['pergunta']); 
+                                    ?>
+                                </span>
+                            </button>
                         </h4>
                         
-                        <p class="text-secondary mb-0" style="font-size: 1.1rem; line-height: 1.6;">
-                            <?php echo nl2br(htmlspecialchars($faq['resposta'])); ?>
-                        </p>
+                        <div id="<?php echo $id_collapse; ?>" class="collapse mt-3">
+                            <p class="text-secondary mb-0" style="font-size: 1.1rem; line-height: 1.6;">
+                                <?php echo nl2br(htmlspecialchars($faq['resposta'])); ?>
+                            </p>
+                        </div>
+
                     </div>
 
                     <?php $contador++; ?>
@@ -112,7 +126,7 @@ $resultado = mysqli_query($conn, $sql);
         <?php endif; ?>
     </div>
 
-<?php endif;?>
+<?php endif; ?>
 
 <?php
 include 'includes/footer.php';
