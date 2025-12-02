@@ -30,17 +30,17 @@ endif;
 // 2. LÓGICA CONDICIONAL: SE LOGADO OU NÃO
 if (isset($_SESSION['usuario_logado'])):
     // ====================================================
-    // ÁREA RESTRITA: UTILIZADOR LOGADO - EXIBIR AGENDA (READ)
+    // ÁREA RESTRITA: UTILIZADOR LOGADO - EXIBIR FAQ (READ)
     // ====================================================
     
-    // Consulta SQL para buscar todos os contatos
-    $sql = "SELECT id, nome, telefone, email, data_nascimento FROM contatos ORDER BY nome ASC";
+    // Consulta SQL para buscar todas as perguntas da nova tabela
+    $sql = "SELECT id, pergunta, resposta, data_criacao FROM faq ORDER BY id ASC";
     $resultado = mysqli_query($conn, $sql);
 ?>
-    <h1 class="mb-4">Lista Completa de Contatos</h1>
+    <h1 class="mb-4">Gerenciamento de FAQ (Perguntas Frequentes)</h1>
     <div class="d-flex justify-content-between mb-3">
-        <p class="h5 text-muted">Total de contatos: <strong><?php echo mysqli_num_rows($resultado); ?></strong></p>
-        <a href="contatos_cadastrar.php" class="btn btn-success">+ Cadastrar Novo Contato</a>
+        <p class="h5 text-muted">Total de perguntas: <strong><?php echo mysqli_num_rows($resultado); ?></strong></p>
+        <a href="contatos_cadastrar.php" class="btn btn-success">+ Nova Pergunta</a>
     </div>
 
     <?php if (mysqli_num_rows($resultado) > 0): ?>
@@ -48,26 +48,24 @@ if (isset($_SESSION['usuario_logado'])):
             <table class="table table-striped table-hover shadow-sm">
                 <thead class="table-dark">
                     <tr>
-                        <th>Nome</th>
-                        <th>Telefone</th>
-                        <th>Email</th>
-                        <th>Nascimento</th>
-                        <th>Ações</th>
+                        <th style="width: 5%">ID</th>
+                        <th style="width: 30%">Pergunta</th>
+                        <th style="width: 45%">Resposta</th>
+                        <th style="width: 20%">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($contato = mysqli_fetch_assoc($resultado)): ?>
+                    <?php while ($faq = mysqli_fetch_assoc($resultado)): ?>
                         <tr>
-                            <td><?php echo htmlspecialchars($contato['nome']); ?></td>
-                            <td><?php echo htmlspecialchars($contato['telefone']); ?></td>
-                            <td><?php echo htmlspecialchars($contato['email']); ?></td>
-                            <td><?php echo date('d/m/Y', strtotime($contato['data_nascimento'])); ?></td>
+                            <td><?php echo $faq['id']; ?></td>
+                            <td><?php echo htmlspecialchars($faq['pergunta']); ?></td>
+                            <td><?php echo htmlspecialchars($faq['resposta']); ?></td>
                             <td>
-                                <a href="contatos_editar.php?id=<?php echo $contato['id']; ?>" class="btn btn-sm btn-warning me-2">Editar</a>
-                                <a href="processa.php?acao=excluir_contato&id=<?php echo $contato['id']; ?>" 
-                                   class="btn btn-sm btn-danger" 
-                                   onclick="return confirm('Tem certeza que deseja EXCLUIR o contato: <?php echo htmlspecialchars($contato['nome']); ?>?');">
-                                   Excluir
+                                <a href="contatos_editar.php?id=<?php echo $faq['id']; ?>" class="btn btn-sm btn-warning me-2">Editar</a>
+                                <a href="processa.php?acao=excluir_faq&id=<?php echo $faq['id']; ?>" 
+                                    class="btn btn-sm btn-danger" 
+                                    onclick="return confirm('Tem certeza que deseja EXCLUIR esta pergunta?');">
+                                    Excluir
                                 </a>
                             </td>
                         </tr>
@@ -77,7 +75,7 @@ if (isset($_SESSION['usuario_logado'])):
         </div>
     <?php else: ?>
         <div class="alert alert-info">
-            Sua agenda está vazia. Comece cadastrando seu primeiro contato!
+            Nenhuma pergunta cadastrada no FAQ.
         </div>
     <?php endif; ?>
 

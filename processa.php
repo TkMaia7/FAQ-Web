@@ -66,6 +66,24 @@ switch ($acao) {
         }
         mysqli_stmt_close($stmt);
         break;
+    
+    case 'cadastrar_faq':
+        verificar_login();
+        
+        $pergunta = filter_input(INPUT_POST, 'pergunta', FILTER_SANITIZE_STRING);
+        $resposta = filter_input(INPUT_POST, 'resposta', FILTER_SANITIZE_STRING);
+
+        // Prepared Statement para INSERT (Proteção contra SQL Injection)
+        $stmt = mysqli_prepare($conn, "INSERT INTO faq (pergunta, resposta) VALUES (?, ?)");
+        mysqli_stmt_bind_param($stmt, "ss", $pergunta, $resposta);
+
+        if (mysqli_stmt_execute($stmt)) {
+            header("Location: index.php?msg=Nova pergunta cadastrada com sucesso!");
+        } else {
+            header("Location: contatos_cadastrar.php?erro=Erro ao cadastrar: " . mysqli_error($conn));
+        }
+        mysqli_stmt_close($stmt);
+        break;
 
     case 'editar_contato':
         verificar_login();
@@ -93,6 +111,30 @@ switch ($acao) {
         }
         mysqli_stmt_close($stmt);
         break;
+    
+    case 'editar_faq':
+        verificar_login();
+        
+        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+        $pergunta = filter_input(INPUT_POST, 'pergunta', FILTER_SANITIZE_STRING);
+        $resposta = filter_input(INPUT_POST, 'resposta', FILTER_SANITIZE_STRING);
+
+        if (!$id) {
+            header("Location: index.php?erro=ID inválido.");
+            exit();
+        }
+
+        // Prepared Statement para UPDATE
+        $stmt = mysqli_prepare($conn, "UPDATE faq SET pergunta = ?, resposta = ? WHERE id = ?");
+        mysqli_stmt_bind_param($stmt, "ssi", $pergunta, $resposta, $id);
+
+        if (mysqli_stmt_execute($stmt)) {
+            header("Location: index.php?msg=Pergunta ID: $id atualizada com sucesso!");
+        } else {
+            header("Location: contatos_editar.php?id=$id&erro=Erro ao atualizar: " . mysqli_error($conn));
+        }
+        mysqli_stmt_close($stmt);
+        break;
 
     case 'excluir_contato':
         verificar_login();
@@ -109,6 +151,27 @@ switch ($acao) {
 
         if (mysqli_stmt_execute($stmt)) {
             header("Location: index.php?msg=Contato excluído com sucesso!");
+        } else {
+            header("Location: index.php?erro=Erro ao excluir: " . mysqli_error($conn));
+        }
+        mysqli_stmt_close($stmt);
+        break;
+    
+    case 'excluir_faq':
+        verificar_login();
+        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+
+        if (!$id) {
+            header("Location: index.php?erro=ID inválido.");
+            exit();
+        }
+
+        // Prepared Statement para DELETE
+        $stmt = mysqli_prepare($conn, "DELETE FROM faq WHERE id = ?");
+        mysqli_stmt_bind_param($stmt, "i", $id);
+
+        if (mysqli_stmt_execute($stmt)) {
+            header("Location: index.php?msg=Pergunta excluída com sucesso!");
         } else {
             header("Location: index.php?erro=Erro ao excluir: " . mysqli_error($conn));
         }
