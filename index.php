@@ -27,12 +27,8 @@ if (!empty($mensagem_erro)):
 <?php
 endif;
 
-// ====================================================
-// ÁREA PÚBLICA E RESTRITA (MISTA)
-// ====================================================
-
-// Consulta SQL para buscar todas as perguntas da nova tabela (Visível para todos)
-$sql = "SELECT id, pergunta, resposta, data_criacao FROM faq ORDER BY id ASC";
+// Consulta SQL
+$sql = "SELECT id, pergunta, resposta FROM faq ORDER BY id ASC";
 $resultado = mysqli_query($conn, $sql);
 ?>
 
@@ -44,57 +40,81 @@ $resultado = mysqli_query($conn, $sql);
     <?php endif; ?>
 </div>
 
-<div class="d-flex justify-content-between mb-3">
-    <p class="h5 text-muted">Total de perguntas encontradas: <strong><?php echo mysqli_num_rows($resultado); ?></strong></p>
-</div>
+<?php if (isset($_SESSION['usuario_logado'])): ?>
 
-<?php if (mysqli_num_rows($resultado) > 0): ?>
-    <div class="table-responsive">
-        <table class="table table-striped table-hover shadow-sm">
-            <thead class="table-dark">
-                <tr>
-                    <th style="width: 5%">ID</th>
-                    <th style="width: 30%">Pergunta</th>
-                    <th style="width: 45%">Resposta</th>
-                    
-                    <?php if (isset($_SESSION['usuario_logado'])): ?>
-                        <th style="width: 20%">Ações (Admin)</th>
-                    <?php endif; ?>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($faq = mysqli_fetch_assoc($resultado)): ?>
+    <div class="alert alert-dark mb-3">
+        <small>Modo Administrador</small>
+    </div>
+
+    <?php if (mysqli_num_rows($resultado) > 0): ?>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover shadow-sm">
+                <thead class="table-dark">
                     <tr>
-                        <td><?php echo $faq['id']; ?></td>
-                        <td><?php echo htmlspecialchars($faq['pergunta']); ?></td>
-                        <td><?php echo htmlspecialchars($faq['resposta']); ?></td>
-                        
-                        <?php if (isset($_SESSION['usuario_logado'])): ?>
+                        <th style="width: 5%">ID</th>
+                        <th style="width: 30%">Pergunta</th>
+                        <th style="width: 45%">Resposta</th>
+                        <th style="width: 20%">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($faq = mysqli_fetch_assoc($resultado)): ?>
+                        <tr>
+                            <td><?php echo $faq['id']; ?></td>
+                            <td><?php echo htmlspecialchars($faq['pergunta']); ?></td>
+                            <td><?php echo htmlspecialchars($faq['resposta']); ?></td>
                             <td>
                                 <a href="faq_editar.php?id=<?php echo $faq['id']; ?>" class="btn btn-sm btn-warning me-2">Editar</a>
-                                
                                 <a href="processa.php?acao=excluir_faq&id=<?php echo $faq['id']; ?>" 
                                    class="btn btn-sm btn-danger" 
-                                   onclick="return confirm('Tem certeza que deseja EXCLUIR esta pergunta?');">
-                                   Excluir
-                                </a>
+                                   onclick="return confirm('Tem certeza que deseja EXCLUIR esta pergunta?');">Excluir</a>
                             </td>
-                        <?php endif; ?>
-                    </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
-    </div>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php else: ?>
+        <div class="alert alert-info">Nenhuma pergunta cadastrada.</div>
+    <?php endif; ?>
+
 <?php else: ?>
-    <div class="alert alert-info py-4 text-center">
-        <h4>Ainda não há perguntas cadastradas.</h4>
-        <p>Volte em breve para consultar nosso FAQ.</p>
+
+    <div class="mt-4">
+        <?php if (mysqli_num_rows($resultado) > 0): ?>
+            
+            <?php $contador = 1; ?>
+
+            <div class="list-group list-group-flush">
+                <?php while ($faq = mysqli_fetch_assoc($resultado)): ?>
+                    <div class="list-group-item py-4 bg-transparent border-bottom">
+                        <h4 class="mb-3 text-primary fw-bold">
+                            <?php 
+                                echo $contador . ". " . htmlspecialchars($faq['pergunta']); 
+                            ?>
+                        </h4>
+                        
+                        <p class="text-secondary mb-0" style="font-size: 1.1rem; line-height: 1.6;">
+                            <?php echo nl2br(htmlspecialchars($faq['resposta'])); ?>
+                        </p>
+                    </div>
+
+                    <?php $contador++; ?>
+                    
+                <?php endwhile; ?>
+            </div>
+
+        <?php else: ?>
+            <div class="alert alert-light text-center py-5 shadow-sm">
+                <h3>Ainda não temos perguntas sobre Regras do Futebol.</h3>
+                <p class="text-muted">Volte em breve!</p>
+            </div>
+        <?php endif; ?>
     </div>
-<?php endif;
 
-// Inclui o rodapé
+<?php endif;?>
+
+<?php
 include 'includes/footer.php';
-
-// Fecha a conexão com o banco
 mysqli_close($conn);
 ?>
