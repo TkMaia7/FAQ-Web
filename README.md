@@ -1,4 +1,4 @@
-#FAQ do FUT
+# FAQ do FUT
 
 Este projeto é um sistema web desenvolvido em PHP Estruturado para o gerenciamento de um FAQ (Perguntas Frequentes) sobre regras de futebol. O sistema possui uma área pública com visualização em Collapse e uma área administrativa protegida para operações de CRUD.
 
@@ -31,7 +31,7 @@ O sistema está configurado para conectar com usuário `root` e senha vazia (pad
 
 ---
 
-## Roteiro de Testes
+## 🧪 Roteiro de Testes
 
 Acesse o sistema pelo navegador: `http://localhost/FAQ-Web/` (ou o nome da pasta que você utilizou).
 
