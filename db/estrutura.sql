@@ -5,12 +5,9 @@ CREATE TABLE IF NOT EXISTS usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario VARCHAR(50) NOT NULL UNIQUE,
     email VARCHAR(100),
-    senha VARCHAR(255) NOT NULL, -- Hash da senha
+    senha VARCHAR(255) NOT NULL, 
     nivel ENUM('Admin', 'Comum') NOT NULL DEFAULT 'Comum'
 );
-
-INSERT INTO usuarios (usuario, email, senha, nivel) VALUES
-('admin', 'admin@faq.com.br', '$2y$10$YiBpez0RPaoPnQM60H8hT0J/jeh0g7k4NFGMpABJj5Hto0lcHC9G.', 'Admin');
 
 CREATE TABLE IF NOT EXISTS faq (
     id INT AUTO_INCREMENT PRIMARY KEY,
