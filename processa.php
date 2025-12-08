@@ -6,6 +6,21 @@ require_once 'config/database.php';
 $acao = isset($_REQUEST['acao']) ? $_REQUEST['acao'] : '';
 
 switch ($acao) {
+
+    // ===========================
+    // CRIAÇÃO DE USUARIO
+    // ===========================
+    case 'criar_admin':
+        require_once 'config/install.php';
+        $resultado = criar_admin();
+        
+        if ($resultado === true) {
+            header("Location: login.php?msg=Sucesso! Use: admin / 123456");
+        } else {
+            header("Location: login.php?erro=" . urlencode($resultado));
+        }
+        break;
+        
     // =========================================
     // AÇÕES DE AUTENTICAÇÃO (LOGIN / LOGOUT)
     // =========================================

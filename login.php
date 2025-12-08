@@ -37,7 +37,18 @@ $mensagem_sucesso = isset($_GET['msg']) ? htmlspecialchars($_GET['msg']) : '';
                 </form>
             </div>
             <div class="card-footer text-center py-3">
-                <a href="index.php" class="text-decoration-none">Voltar para o FAQ</a>
+                <div class="mb-2">
+                    <a href="index.php" class="text-decoration-none fw-bold">Voltar para o FAQ</a>
+                </div>
+                
+                <small>
+                    <a href="processa.php?acao=criar_admin" 
+                       class="text-muted link-underline link-underline-opacity-0 link-underline-opacity-100-hover" 
+                       style="font-size: 0.8rem;"
+                       onclick="return confirm('Deseja configurar o usuário Admin?');">
+                       Primeiro acesso? Criar Usuário
+                    </a>
+                </small>
             </div>
         </div>
     </div>
