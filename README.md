@@ -46,9 +46,7 @@ Acesse o sistema pelo navegador: `http://localhost/FAQ-Web/` (ou o nome da pasta
 * Utilize as credenciais padrão:
     * **Usuário:** `admin`
     * **Senha:** `123456`
-      
-#### Erro de "Credenciais Inválidas"
-Caso seja o primeiro login, clique: "Primeiro acesso? Criar Usuário".
+* Caso seja o primeiro login, clique: "Primeiro acesso? Criar Usuário".
 
 ### 3. Teste do CRUD (Administrador)
 Após o login, você será redirecionado para a `index.php`, agora em **Modo Tabela**.
