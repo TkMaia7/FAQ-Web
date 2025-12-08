@@ -50,10 +50,6 @@ Acesse o sistema pelo navegador: `http://localhost/FAQ-Web/` (ou o nome da pasta
 #### Erro de "Credenciais Inválidas"
 Caso seja o primeiro login, clique: "Primeiro acesso? Criar Usuário".
 
-1. Acesse no navegador: `http://localhost/FAQ-Web/reset_senha.php`
-2. O script forçará a redefinição da senha do usuário **admin** para `123456`.
-3. Tente fazer login novamente.
-
 ### 3. Teste do CRUD (Administrador)
 Após o login, você será redirecionado para a `index.php`, agora em **Modo Tabela**.
 
