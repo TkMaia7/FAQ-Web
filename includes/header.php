@@ -1,6 +1,7 @@
 <?php
 // Define o caminho base para que os links funcionem corretamente, independente da pasta
 $caminho = (basename(getcwd()) == 'FAQ-Web') ? '' : '../';
+$paginaAtual = basename($_SERVER['PHP_SELF']);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -25,11 +26,11 @@ $caminho = (basename(getcwd()) == 'FAQ-Web') ? '' : '../';
                 <ul class="navbar-nav me-auto">
                     <?php if (isset($_SESSION['usuario_logado'])): ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo $caminho; ?>faq_cadastrar.php">Cadastrar FAQ</a>
+                            <a class="nav-link <?= ($paginaAtual == 'faq_cadastrar.php' ? 'active' : '')?>" href="<?php echo $caminho; ?>faq_cadastrar.php">Cadastrar FAQ</a>
                         </li>
                         <?php if (isset($_SESSION['usuario_nivel']) && $_SESSION['usuario_nivel'] == 'Admin'): ?>
                             <li class="nav-item">
-                                <a class="nav-link text-warning" href="<?php echo $caminho; ?>usuarios.php">Gerenciar Utilizadores</a>
+                                <a class="nav-link <?= ($paginaAtual == 'usuarios.php' ? 'active' : '')?>" href="<?php echo $caminho; ?>usuarios.php">Gerenciar Utilizadores</a>
                             </li>
                         <?php endif; ?>
                     <?php endif; ?>
