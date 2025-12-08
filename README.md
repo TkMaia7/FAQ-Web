@@ -48,7 +48,7 @@ Acesse o sistema pelo navegador: `http://localhost/FAQ-Web/` (ou o nome da pasta
     * **Senha:** `123456`
       
 #### Erro de "Credenciais Inválidas"
-Caso o login falhe mesmo utilizando a senha correta (problemas comuns de hash ao importar bancos de dados), existe um script para resetar a senha.
+Caso seja o primeiro login, clique: "Primeiro acesso? Criar Usuário".
 
 1. Acesse no navegador: `http://localhost/FAQ-Web/reset_senha.php`
 2. O script forçará a redefinição da senha do usuário **admin** para `123456`.
