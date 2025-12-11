@@ -1,4 +1,6 @@
-</div><footer class="text-center text-white bg-dark py-3 mt-5">
+</div>
+</main>
+    <footer class="mt-auto text-center text-white bg-dark py-3">
         <div class="container">
             <p class="mb-0">Projeto FAQ Sobre Regras do Futebol &copy; <?php echo date("Y"); ?></p>
         </div>
