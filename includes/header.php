@@ -15,7 +15,7 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
         .card-login { max-width: 450px; margin-top: 50px; }
     </style>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="<?php echo $caminho; ?>index.php">FAQ do FUT</a>
@@ -55,4 +55,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
             </div>
         </div>
     </nav>
-    <div class="container mt-4">
+
+    <main class="flex-shrink-0 flex-fill">
+        <div class="container mt-4">
